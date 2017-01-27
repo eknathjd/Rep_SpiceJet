@@ -1,0 +1,59 @@
+package Flight_Reservation;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class Check_Flight_Schedules {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("Webdriver.gecko.driver", "C:\\Selenium\\Selenium_Practice\\EXEs\\geckodriver-v0.10.0-win64\\geckodriver.exe");
+		
+		WebDriver driver = new FirefoxDriver();
+		
+		driver.get("http://www.spicejet.com/");
+		
+		driver.manage().window().maximize();
+		
+		driver.findElement(By.xpath(".//*[@id='mainContents']/div[4]/div[4]/ul/li[1]/a")).click();
+		
+		driver.findElement(By.xpath("//a[@id='triggerDomestic']")).click();
+		
+		Select Origin = new Select(driver.findElement(By.id("ctl00_mainContent_cboOrg")));
+		Origin.selectByValue("Mumbai");
+		
+		Select Destination = new Select(driver.findElement(By.id("cboDest")));
+		Destination.selectByValue("Vishakhapatnam");
+		
+		WebElement table = driver.findElement(By.xpath(".//*[@id='result']"));
+		
+		List<WebElement> noofrows = table.findElements(By.tagName("tr"));
+		
+		System.out.println("No. of rows are: "+noofrows.size());
+		
+		
+		
+		for(WebElement eachrow:noofrows)
+		{
+			List<WebElement> eachcolumn = eachrow.findElements(By.tagName("td"));
+			//System.out.println("No. of columns: "+eachcolumn.size());
+			
+			for(WebElement rowdata:eachcolumn)
+			{
+				System.out.print(rowdata.getText()+" ");
+			}
+			
+			System.out.println();
+		}
+		
+		
+
+	}
+
+}
