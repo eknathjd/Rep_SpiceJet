@@ -1,0 +1,40 @@
+package Flight_Reservation;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class TrackFlightStatus {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("Webdriver.gecko.driver", "C:\\Selenium\\Selenium_Practice\\EXEs\\geckodriver-v0.10.0-win64\\geckodriver.exe");
+		
+		WebDriver driver = new FirefoxDriver();
+		
+		driver.get("http://www.spicejet.com/");
+		
+		driver.manage().window().maximize();
+		
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.findElement(By.xpath(".//*[@id='externalLinks']/ul/li[1]")).click();
+		
+		driver.findElement(By.id("FlifoSearchInputCompactFlightStatus_originStation")).click();
+		
+		//Select OriginAirport = new Select(driver.findElement(By.id("FlifoSearchInputCompactFlightStatus_originStation")));
+		Select OriginAirport = new Select(driver.findElement(By.xpath(".//*[@id='FlifoSearchInputCompactFlightStatus_originStation']")));
+		OriginAirport.selectByValue("MAA");
+		
+		Select DestinationAirport = new Select(driver.findElement(By.id("FlifoSearchInputCompactFlightStatus_destinationStation")));
+		DestinationAirport.selectByValue("DXB");
+		
+	
+
+	}
+
+}
